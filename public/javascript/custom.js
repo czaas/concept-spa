@@ -13,6 +13,9 @@ $(document).ready(function(){
 	// Add user on button click
 	$('#btnAddUser').on('click', addUser);
 	
+	// Edit user
+	$('#userList table tbody').on('click', 'td a.linkedituser', editUser);
+	
 	// Delete a user
 	$('#userList table tbody').on('click', 'td a.linkdeleteuser', deleteUser);
 	
@@ -36,6 +39,7 @@ function populateTable(){
 			tableContent += '<tr>';
 			tableContent += '<td><a href="#" class="linkshowuser" rel="' + this.username + '">' + this.username + '</a></td>';
 			tableContent += '<td>' + this.email + '</td>';
+			tableContent += '<td><a href="#" class="linkedituser" rel="' + this._id + '">Edit</td>';
 			tableContent += '<td><a href="#" class="linkdeleteuser" rel="' + this._id + '">delete</a></td>';
 			tableContent += '</tr>';
 		});
@@ -130,6 +134,31 @@ function addUser(event){
 		return false;
 		
 	}
+	
+}
+
+function editUser(e){
+	e.preventDefault();
+	
+	$('#btnAddUser').addClass('off');
+	$('#btnSaveEdit, #btnCancelEdit').removeClass('off');
+	
+	// work in progress
+	
+	/*
+		When edit is in action
+		
+	ON function CALL 
+		-Get ID of rel tag in link
+		-Display all properties in input fields
+		-on save, it will AJAX data call to database and update user
+			- Clear inputs 
+			- update table
+		-on cancel
+			- clear inputs
+			- remove any data ready to be sent to database
+		
+		*/
 	
 }
 

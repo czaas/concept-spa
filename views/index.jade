@@ -30,6 +30,7 @@ block content
           thead
             th UserName
             th Email
+            th Edit
             th Delete?
           tbody
       // /USER LIST
@@ -47,5 +48,7 @@ block content
           input#inputUserGender(type="text", placeholder="Gender")
           br
           button#btnAddUser Add User
+          button#btnSaveEdit.off Save Edits
+          button#btnCancelEdit.off Cancel
       // /ADD USER
   // /WRAPPER    
