@@ -19,8 +19,8 @@ router.post('/adduser', function(req, res){
 router.put('/edituser/:id', function(req, res){
 	var db = req.db;
 	var userToEdit = req.params.id;
-	
-	db.collection('userlist').update(userToEdit, req.body, function(err, result){
+	console.log(userToEdit);
+	db.collection('userlist').update({'_id': "ObjectId(" + userToEdit +")"}, { $set: req.body}, function(err, result){
 		res.send((err === null) ? { msg: '' } : { msg: err });
 	});
 });

@@ -146,25 +146,6 @@ function editUser(e){
 	
 	// work in progress
 	
-	/*
-		When edit is in action
-		
-	ON function CALL 
-		-Get ID of rel tag in link
-		-Display all properties in input fields
-		-on save, it will AJAX data call to database and update user
-			- Clear inputs 
-			- update table
-		-on cancel
-			- clear inputs
-			- remove any data ready to be sent to database
-		
-		*/
-	
-	
-	
-//// FIRST THING GET USER in input fields
-	
 	// Retrieve username from the link rel attribute
 	var thisUserName = $(this).attr('rel');
 	
@@ -187,7 +168,40 @@ function editUser(e){
 	$('#inputUserGender').val(thisUserObject.gender);
 	
 	
-
+	// on SAVE 
+	$('#btnSaveEdit').on('click', function(e){
+		e.preventDefault();
+		
+		
+		// get user data and save it to an object
+		var editedUser = {
+			'username': $('#inputUserName').val(),
+			'email': $('#inputUserEmail').val(),
+			'fullname': $('#inputUserFullname').val(),
+			'age': $('#inputUserAge').val(),
+			'location': $('#inputUserLocation').val(),
+			'gender': $('#inputUserGender').val()
+		};
+		
+		$.ajax({
+			type: 'PUT',
+			data: editedUser,
+			url: '/users/edituser/' + thisUserName,
+			datatype: 'JSON'
+		}).done(function(response){
+			if(response.msg === ''){
+				$('#addUser input').val('');
+				$('#btnAddUser').removeClass('off');
+				$('#btnSaveEdit, #btnCancelEdit').addClass('off');
+				console.log(editedUser);
+				populateTable();
+			} else {
+				alert('Error: ' + response.msg);
+			}
+		});
+	});
+	
+	// CANCELS Edit
 	$('#btnCancelEdit').on('click', function(e){
 		e.preventDefault();
 		
