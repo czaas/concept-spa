@@ -67,6 +67,7 @@ function showUserInfo(event){
 		
 	}).indexOf(thisUserName);
 	
+	
 	// Get our object
 	var thisUserObject = userListData[arrayPosition];
 	
@@ -159,6 +160,44 @@ function editUser(e){
 			- remove any data ready to be sent to database
 		
 		*/
+	
+	
+	
+//// FIRST THING GET USER in input fields
+	
+	// Retrieve username from the link rel attribute
+	var thisUserName = $(this).attr('rel');
+	
+	// Get Index of object based on id value
+	var arrayPosition = userListData.map(function(arrayItem){
+			// Using ID to catch array index because I'm using the id as the rel tag
+			return arrayItem._id;
+	}).indexOf(thisUserName);
+	
+	
+	// Get our object
+	var thisUserObject = userListData[arrayPosition];
+	
+	// populate user fields
+	$('#inputUserName').val(thisUserObject.username);
+	$('#inputUserEmail').val(thisUserObject.email);
+	$('#inputUserFullname').val(thisUserObject.fullname);
+	$('#inputUserAge').val(thisUserObject.age);
+	$('#inputUserLocation').val(thisUserObject.location);
+	$('#inputUserGender').val(thisUserObject.gender);
+	
+	
+
+	$('#btnCancelEdit').on('click', function(e){
+		e.preventDefault();
+		
+		$('#addUser input').val('');
+		
+		$('#btnAddUser').removeClass('off');
+		$('#btnSaveEdit, #btnCancelEdit').addClass('off');
+		
+		return false;
+	});
 	
 }
 
